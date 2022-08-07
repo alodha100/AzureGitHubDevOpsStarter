@@ -1,7 +1,7 @@
 # Azure DevOps Starter
 ## Start fresh with a new application
 ---
-* Setting up DevOps starter with GitHub, change settings
+* Setting up DevOps starter with GitHub
 * Web App for Containers
 * Fully managed compute platform on Linux for deploying and running containerized web applications
 ---
