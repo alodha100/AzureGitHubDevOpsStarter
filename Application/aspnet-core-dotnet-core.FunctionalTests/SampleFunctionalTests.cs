@@ -1,8 +1,8 @@
+using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
-using System;
-using System.Threading;
 
 namespace SampleWebApplication.FunctionalTests
 {
@@ -40,24 +40,25 @@ namespace SampleWebApplication.FunctionalTests
             var endTimestamp = startTimestamp + 60 * 10;
 
             while (true)
-            {
                 try
                 {
                     driver.Navigate().GoToUrl(webAppUrl);
-                    Assert.AreEqual("Home Page - ASP.NET Core 3.1", driver.Title, "Expected title to be 'Home Page - ASP.NET Core 3.1'");
+                    Assert.AreEqual("Home Page - ASP.NET Core 3.1", driver.Title,
+                        "Expected title to be 'Home Page - ASP.NET Core 3.1'");
                     break;
                 }
                 catch (Exception e)
                 {
                     var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                    if(currentTimestamp > endTimestamp)
+                    if (currentTimestamp > endTimestamp)
                     {
-                        Console.Write("##vso[task.logissue type=error;]Test SampleFunctionalTest1 failed with error: " + e.ToString());
+                        Console.Write("##vso[task.logissue type=error;]Test SampleFunctionalTest1 failed with error: " +
+                                      e);
                         throw;
                     }
+
                     Thread.Sleep(5000);
                 }
-            }
         }
 
         private RemoteWebDriver GetChromeDriver()
@@ -67,13 +68,9 @@ namespace SampleWebApplication.FunctionalTests
             options.AddArguments("--no-sandbox");
 
             if (!string.IsNullOrWhiteSpace(path))
-            {
                 return new ChromeDriver(path, options, TimeSpan.FromSeconds(300));
-            }
-            else
-            {
-                return new ChromeDriver(options);
-            }
+
+            return new ChromeDriver(options);
         }
     }
 }
